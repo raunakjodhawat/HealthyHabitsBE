@@ -1,0 +1,115 @@
+2022.06.29 17:18:33 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/raunakjodhawat/code/healthyhabitsv2be/.metals/lsp.trace.json or /Users/raunakjodhawat/Library/Caches/org.scalameta.metals/lsp.trace.json[0m
+2022.06.29 17:18:35 INFO  logging to file /Users/raunakjodhawat/code/healthyhabitsv2be/.metals/metals.log[0m
+2022.06.29 17:18:35 INFO  Started: Metals version 0.11.6 in workspace '/Users/raunakjodhawat/code/healthyhabitsv2be' for client Visual Studio Code 1.67.2.[0m
+2022.06.29 17:22:06 INFO  time: initialize in 3m31s[0m
+2022.06.29 17:22:06 WARN  Flyway upgrade recommended: H2 2.1.212 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.1.210.[0m
+2022.06.29 17:22:06 WARN  Build server is not auto-connectable.[0m
+2022.06.29 17:22:39 INFO  running '/Library/Java/JavaVirtualMachines/jdk-11.0.13.jdk/Contents/Home/bin/java -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar /var/folders/3_/f24kfx7x4xv0tc96wcxng7180000gn/T/metals16686338895607708478/sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'[0m
+2022.06.29 17:22:39 WARN  no build target for: /Users/raunakjodhawat/code/healthyhabitsv2be/project/project/metals.sbt[0m
+2022.06.29 17:22:39 WARN  no build target for: /Users/raunakjodhawat/code/healthyhabitsv2be/project/metals.sbt[0m
+2022.06.29 17:22:39 INFO  skipping build import with status 'Started'[0m
+2022.06.29 17:22:42 INFO  [info] welcome to sbt 1.6.2 (Oracle Corporation Java 11.0.13)[0m
+2022.06.29 17:22:45 INFO  [info] loading global plugins from /Users/raunakjodhawat/.sbt/1.0/plugins[0m
+2022.06.29 17:22:50 INFO  [info] loading settings for project healthyhabitsv2be-build-build-build from metals.sbt ...[0m
+2022.06.29 17:22:50 INFO  [info] loading project definition from /Users/raunakjodhawat/code/healthyhabitsv2be/project/project/project[0m
+2022.06.29 17:39:07 INFO  [info] loading settings for project healthyhabitsv2be-build-build from metals.sbt ...[0m
+2022.06.29 17:39:07 INFO  [info] loading project definition from /Users/raunakjodhawat/code/healthyhabitsv2be/project/project[0m
+2022.06.29 17:41:29 INFO  [success] Generated .bloop/healthyhabitsv2be-build-build.json[0m
+2022.06.29 17:41:29 INFO  [success] Total time: 142 s (02:22), completed Jun 29, 2022, 5:41:30 PM[0m
+2022.06.29 17:41:32 INFO  [info] loading settings for project healthyhabitsv2be-build from metals.sbt,plugins.sbt ...[0m
+2022.06.29 17:41:32 INFO  [info] loading project definition from /Users/raunakjodhawat/code/healthyhabitsv2be/project[0m
+2022.06.29 17:41:42 INFO  [success] Generated .bloop/healthyhabitsv2be-build.json[0m
+2022.06.29 17:41:42 INFO  [success] Total time: 9 s, completed Jun 29, 2022, 5:41:42 PM[0m
+2022.06.29 17:41:45 INFO  [info] loading settings for project root from build.sbt ...[0m
+2022.06.29 17:41:45 INFO  [info] set current project to healthyHabitsv2BE (in build file:/Users/raunakjodhawat/code/healthyhabitsv2be/)[0m
+2022.06.29 17:45:30 INFO  [success] Generated .bloop/root.json[0m
+2022.06.29 17:45:30 INFO  [success] Generated .bloop/root-test.json[0m
+2022.06.29 17:45:30 INFO  [success] Total time: 225 s (03:45), completed Jun 29, 2022, 5:45:30 PM[0m
+2022.06.29 17:45:31 INFO  time: ran 'sbt bloopInstall' in 22m32s[0m
+2022.06.29 17:45:31 INFO  Attempting to connect to the build server...[0m
+2022.06.29 17:46:45 ERROR Starting the bsp launcher for bloop...[0m
+2022.06.29 17:46:45 ERROR Opening a bsp server connection with 'bsp --protocol local --socket /var/folders/3_/f24kfx7x4xv0tc96wcxng7180000gn/T/bsp-launcher8944311078547431032/bsp.socket'...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR error: Giving up on waiting for a connection, printing embedded bloop logs:[0m
+2022.06.29 17:46:45 ERROR > No server running at 127.0.0.1:8212, let's fire one...[0m
+2022.06.29 17:46:45 ERROR > Resolving ch.epfl.scala:bloop-frontend_2.12:1.5.0-18-003e6c7b...[0m
+2022.06.29 17:46:45 ERROR error: Trying a tcp-based connection to the server instead...[0m
+2022.06.29 17:46:45 ERROR Opening a bsp server connection with 'bsp --protocol tcp --port 42126'...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR Waiting for the bsp connection to come up...[0m
+2022.06.29 17:46:45 ERROR error: Giving up on waiting for a connection, printing embedded bloop logs:[0m
+2022.06.29 17:46:45 ERROR > No server running at 127.0.0.1:8212, let's fire one...[0m
+2022.06.29 17:46:45 ERROR > Resolving ch.epfl.scala:bloop-frontend_2.12:1.5.0-18-003e6c7b...[0m
+2022.06.29 17:46:45 ERROR error: The launcher failed to establish a bsp connection, aborting...[0m
+2022.06.29 17:46:45 ERROR Failed to connect with build server, no functionality will work.
+java.lang.RuntimeException: The server did not start, got FailedToOpenBspConnection
+	at bloop.launcher.LauncherMain.failPromise$1(Launcher.scala:92)
+	at bloop.launcher.LauncherMain.runLauncher(Launcher.scala:119)
+	at scala.meta.internal.metals.BloopServers$$anon$2.run(BloopServers.scala:434)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.lang.Thread.run(Thread.java:834)
+[0m
+2022.06.29 17:52:47 INFO  no build target found for /Users/raunakjodhawat/code/healthyhabitsv2be/project/metals.sbt. Using presentation compiler with project's scala-library version: 3.1.2[0m
+2022.06.29 18:38:57 INFO  shutting down Metals[0m
