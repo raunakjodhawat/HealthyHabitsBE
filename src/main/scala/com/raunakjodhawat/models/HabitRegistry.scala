@@ -3,53 +3,67 @@ package com.raunakjodhawat.models
 import akka.actor.typed.javadsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 
-import java.sql.Date
 import scala.collection.immutable
-import com.raunakjodhawat.models.UtilRegistry.ActionPerformed
+import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
+
+final case class Schedule(
+    days_if_week: Array[Int],
+    minutes: Int
+)
 
 final case class Habit(
     habit_id: Int,
     user_id: Int,
     habit_name: String,
-    description: String,
-    creation_date: Date,
-    importance_level: String,
-    required_time: String
+    aspiration: String,
+    importance: Int,
+    schedule: Schedule
 )
 
 final case class Habits(habits: immutable.Seq[Habit])
 
 object HabitRegistry {
-  sealed trait Command
-
-  final case class createHabit(
+  // Create a habit
+  final case class CreateHabit(
       habit: Habit,
       replyTo: ActorRef[ActionPerformed]
   ) extends Command
 
-  final case class seeAllHabits(replyTo: ActorRef[Habits]) extends Command
-  final case class seeOneHabit(habit_id: Int, replyTo: ActorRef[Option[Habit]])
+  // See all habits for a user
+  final case class SeeAllHabits(userId: Int, replyTo: ActorRef[Habits])
       extends Command
-  final case class deleteOneHabit(
+
+  // edit a habit
+  final case class EditHabit(
+      user_id: Int,
+      habit_id: Int,
+      replyTo: ActorRef[Option[Habit]]
+  ) extends Command
+
+  // delete a habit
+  final case class DeleteHabit(
+      user_id: Int,
       habit_id: Int,
       replyTo: ActorRef[ActionPerformed]
   ) extends Command
 
-  def apply(): Behavior[Command] = registry(Set.empty)
+  def apply(): Behavior[Command] = registry(Seq.empty)
 
-  private def registry(habit: Set[Habit]): Behavior[Command] =
+  private def registry(habit: Seq[Habit]): Behavior[Command] =
     Behaviors.receiveMessage {
-      case createHabit(newHabit, replyTo) =>
+      case CreateHabit(newHabit, replyTo) =>
         replyTo ! ActionPerformed(s"${newHabit.habit_name} is created")
-        registry(habit + newHabit)
-      case seeAllHabits(replyTo) =>
-        replyTo ! Habits(habit.toSeq)
+        registry(habit :+ newHabit)
+      case SeeAllHabits(userId: Int, replyTo) =>
+        replyTo ! Habits(habit.filter(h => h.user_id == userId))
         Behaviors.same
-      case seeOneHabit(habitID, replyTo) =>
-        replyTo ! habit.find(h => h.habit_id == habitID)
+      case EditHabit(userId, habitId, replyTo) =>
+        replyTo ! habit.find(h => h.habit_id == habitId && h.user_id == userId)
         Behaviors.same
-      case deleteOneHabit(habitID, replyTo) =>
-        replyTo ! ActionPerformed(s"$habitID was deleted")
-        registry(habit.filterNot(h => h.habit_id == habitID))
+      case DeleteHabit(userId, habitId, replyTo) =>
+        replyTo ! ActionPerformed(s"$habitId was deleted")
+        registry(
+          habit.filterNot(h => h.habit_id == habitId && h.user_id == userId)
+        )
     }
 }

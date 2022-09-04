@@ -11,7 +11,7 @@ import scala.util.Success
 import com.raunakjodhawat.routes.UserRoutes
 
 //#main-class
-object QuickstartApp {
+object Application {
   //#start-http-server
   private def startHttpServer(
       routes: Route

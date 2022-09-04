@@ -3,11 +3,11 @@ package com.raunakjodhawat.routes
 import akka.actor.typed.scaladsl.AskPattern.{Askable, schedulerFromActorSystem}
 import akka.actor.typed.{ActorRef, ActorSystem}
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.{Directives, Route}
+import akka.http.scaladsl.server.Route
 import akka.util.Timeout
 import com.raunakjodhawat.models.UserRegistry.{CreateUser, GetAllUsers}
 import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
-import com.raunakjodhawat.models.{User, UserRegistry, Users}
+import com.raunakjodhawat.models.{User, Users}
 import spray.json.DefaultJsonProtocol.immSeqFormat
 
 import scala.concurrent.ExecutionContext.Implicits.global
