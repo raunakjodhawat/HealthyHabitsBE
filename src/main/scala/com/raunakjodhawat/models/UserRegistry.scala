@@ -1,7 +1,7 @@
 package com.raunakjodhawat.models
 
 import akka.actor.typed.{ActorRef, Behavior}
-import com.raunakjodhawat.models.UtilRegistry.ActionPerformed
+import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
 
 import scala.collection.immutable
 import akka.actor.typed.scaladsl.Behaviors
@@ -10,8 +10,6 @@ final case class User(user_id: Int, email: String, user_name: String)
 final case class Users(users: immutable.Seq[User])
 
 object UserRegistry {
-  sealed trait Command
-
   final case class CreateUser(user: User, replyTo: ActorRef[ActionPerformed])
       extends Command
 
