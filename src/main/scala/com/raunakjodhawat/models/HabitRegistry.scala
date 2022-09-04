@@ -7,7 +7,7 @@ import scala.collection.immutable
 import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
 
 final case class Schedule(
-    days_if_week: Array[Int],
+    days_of_week: Array[Int],
     minutes: Int
 )
 
@@ -25,6 +25,7 @@ final case class Habits(habits: immutable.Seq[Habit])
 object HabitRegistry {
   // Create a habit
   final case class CreateHabit(
+      userId: Int,
       habit: Habit,
       replyTo: ActorRef[ActionPerformed]
   ) extends Command
@@ -37,6 +38,7 @@ object HabitRegistry {
   final case class EditHabit(
       user_id: Int,
       habit_id: Int,
+      habit: Habit,
       replyTo: ActorRef[Option[Habit]]
   ) extends Command
 
@@ -51,15 +53,19 @@ object HabitRegistry {
 
   private def registry(habit: Seq[Habit]): Behavior[Command] =
     Behaviors.receiveMessage {
-      case CreateHabit(newHabit, replyTo) =>
+      case CreateHabit(userId, newHabit, replyTo) =>
         replyTo ! ActionPerformed(s"${newHabit.habit_name} is created")
-        registry(habit :+ newHabit)
+        registry(habit.filter(h => h.user_id == userId) :+ newHabit)
       case SeeAllHabits(userId: Int, replyTo) =>
         replyTo ! Habits(habit.filter(h => h.user_id == userId))
         Behaviors.same
-      case EditHabit(userId, habitId, replyTo) =>
-        replyTo ! habit.find(h => h.habit_id == habitId && h.user_id == userId)
-        Behaviors.same
+      case EditHabit(userId, habitId, editedHabit, replyTo) =>
+        replyTo ! Some(editedHabit)
+        registry(
+          habit.filterNot(h =>
+            h.habit_id == habitId && h.user_id == userId
+          ) :+ editedHabit
+        )
       case DeleteHabit(userId, habitId, replyTo) =>
         replyTo ! ActionPerformed(s"$habitId was deleted")
         registry(

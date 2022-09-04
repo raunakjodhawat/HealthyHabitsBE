@@ -27,16 +27,63 @@ class HabitRoutes(habitRegistry: ActorRef[Command])(implicit
       system.settings.config.getDuration("my-app.routes.ask-timeout")
     )
 
-  def createHabitForAUser(habit: Habit): Future[ActionPerformed] =
-    habitRegistry.ask(CreateHabit(habit, _))
+  def createHabitForAUser(userId: Int, habit: Habit): Future[ActionPerformed] =
+    habitRegistry.ask(CreateHabit(userId, habit, _))
 
   def getAllHabitsForAUser(userId: Int): Future[Habits] =
     habitRegistry.ask(SeeAllHabits(userId, _))
 
-  def editAHabitForAUser(userId: Int, habitId: Int): Future[Option[Habit]] =
-    habitRegistry.ask(EditHabit(userId, habitId, _))
+  def editAHabitForAUser(
+      userId: Int,
+      habitId: Int,
+      habit: Habit
+  ): Future[Option[Habit]] =
+    habitRegistry.ask(EditHabit(userId, habitId, habit, _))
 
   def deleteAHabitForAUser(userId: Int, habitId: Int): Future[ActionPerformed] =
     habitRegistry.ask(DeleteHabit(userId, habitId, _))
 
+  val habitRoutes: Route =
+    path("habit") {
+      concat(
+        get {
+          parameter("userId".as[Int]) { userId =>
+            {
+              val habits = getAllHabitsForAUser(userId)
+              complete(200, habits)
+            }
+          }
+        },
+        put {
+          parameters("userId".as[Int], "habitId".as[Int]) { (userId, habitId) =>
+            entity(as[Habit]) { newHabit =>
+              {
+                val habit = editAHabitForAUser(userId, habitId, newHabit)
+                complete(200, habit)
+              }
+            }
+          }
+        },
+        post {
+          parameters("userId".as[Int]) { (userId: Int) =>
+            {
+              entity(as[Habit]) { habit =>
+                {
+                  val habits = createHabitForAUser(userId, habit)
+                  complete(200, habits)
+                }
+              }
+            }
+          }
+        },
+        delete {
+          parameters("userId".as[Int], "habitId".as[Int]) { (userId, habitId) =>
+            {
+              val habit = deleteAHabitForAUser(userId, habitId)
+              complete(200, habit)
+            }
+          }
+        }
+      )
+    }
 }

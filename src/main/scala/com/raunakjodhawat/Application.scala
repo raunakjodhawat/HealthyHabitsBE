@@ -3,20 +3,16 @@ package com.raunakjodhawat
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.server.Directives.path
-import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.{Directives, Route}
 
 import scala.util.Failure
 import scala.util.Success
-import com.raunakjodhawat.routes.UserRoutes
+import com.raunakjodhawat.routes.{HabitRoutes, UserRoutes}
 
-//#main-class
 object Application {
-  //#start-http-server
   private def startHttpServer(
       routes: Route
   )(implicit system: ActorSystem[_]): Unit = {
-    // Akka HTTP still needs a classic ActorSystem to start
     import system.executionContext
 
     val futureBinding = Http().newServerAt("localhost", 8080).bind(routes)
@@ -33,20 +29,26 @@ object Application {
         system.terminate()
     }
   }
-  //#start-http-server
+
   def main(args: Array[String]): Unit = {
-    //#server-bootstrapping
     val rootBehavior = Behaviors.setup[Nothing] { context =>
       val userRegistryActor =
         context.spawn(models.UserRegistry(), "UserRegistryActor")
+
+      val habitRegistryActor =
+        context.spawn(models.HabitRegistry(), "HabitRegistryActor")
+
+      context.watch(habitRegistryActor)
       context.watch(userRegistryActor)
 
-      val routes = new UserRoutes(userRegistryActor)(context.system)
-      startHttpServer(path("user")(routes.userRoutes))(context.system)
+      val userRoutes = new UserRoutes(userRegistryActor)(context.system)
+      val habitRoutes = new HabitRoutes(habitRegistryActor)(context.system)
+
+      val allRoutes: Route =
+        Directives.concat(userRoutes.userRoutes, habitRoutes.habitRoutes)
+      startHttpServer(allRoutes)(context.system)
       Behaviors.empty
     }
     val system = ActorSystem[Nothing](rootBehavior, "HelloAkkaHttpServer")
-    //#server-bootstrapping
   }
 }
-//#main-class

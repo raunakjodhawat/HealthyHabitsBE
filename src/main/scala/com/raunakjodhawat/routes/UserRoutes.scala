@@ -28,7 +28,7 @@ class UserRoutes(userRegistry: ActorRef[Command])(implicit
 
   def getAllUsers(): Future[Users] = userRegistry.ask(GetAllUsers(_))
 
-  val userRoutes: Route = {
+  val userRoutes: Route = path("user") {
     concat(
       pathEnd {
         concat(

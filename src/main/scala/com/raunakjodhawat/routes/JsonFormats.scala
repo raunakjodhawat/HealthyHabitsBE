@@ -1,7 +1,7 @@
 package com.raunakjodhawat.routes
 
 import com.raunakjodhawat.models.UtilRegistry.ActionPerformed
-import com.raunakjodhawat.models.{Habit, Schedule, User, Users}
+import com.raunakjodhawat.models.{Habit, Habits, Schedule, User, Users}
 import spray.json.DefaultJsonProtocol
 object JsonFormats {
   import DefaultJsonProtocol._
@@ -12,5 +12,6 @@ object JsonFormats {
 
   implicit val scheduleJsonFormat = jsonFormat2(Schedule)
   implicit val habitJsonFormat = jsonFormat6(Habit)
+  implicit val habitsJsonFormat = jsonFormat1(Habits)
 
 }
