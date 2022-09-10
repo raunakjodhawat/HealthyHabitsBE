@@ -44,7 +44,7 @@ case object tokenUtility extends App {
   implicit val executionContext = system.executionContext
 
   val a =
-    "sdfsdf"
+    "EAAGMJQ9ZCNSoBABK5xnQkt6EMdjbgBmZA9Hi0rV3yWYajKsStJ0MaQgOvxPbsdwW6C1h3zMaQZAiq652tAYZCtwZAZC2SLIbp1Xjrj3z92FSLkCOmbAj5uH5N8jxe99Ss0dXPFZA8PHIHpVAsf0T1zZCazV4Oy8tFm5Pik4htmoqskeUNLblzhIopQDCZAGyOVY1QefClFTI26Pi5Xzewz8rVPB1jkgAesqgZD"
 
   val app_access_token =
     "sdfsd"
@@ -57,8 +57,11 @@ case object tokenUtility extends App {
     (user_id, access_token) match {
       case (Some(u_id), Some(a_t)) => {
         // query fb
+        println(System.getenv("FB_CLIENT_ID"))
+        val fbClientId = System.getenv("FB_CLIENT_ID")
+        val fbClientSecret = System.getenv("FB_CLIENT_SECRET")
         val url =
-          s"$FB_GRAPH_API_URL/debug_token?input_token=$a_t&access_token=$a_t"
+          s"$FB_GRAPH_API_URL/debug_token?input_token=$a_t&access_token=$fbClientId|$fbClientSecret"
         val fbResponse: Future[HttpResponse] =
           Http().singleRequest(Get(uri = url))
 
