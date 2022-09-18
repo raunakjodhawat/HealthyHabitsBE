@@ -2,4 +2,5 @@
 .idea
 target/
 .env.development
-
+.vscode
+.metals
