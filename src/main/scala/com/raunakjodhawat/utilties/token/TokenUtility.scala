@@ -7,11 +7,15 @@ import akka.http.scaladsl.model.HttpResponse
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.util.ByteString
 import com.raunakjodhawat.models.DebugToken
-import scala.concurrent.Future
+
+import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import com.raunakjodhawat.routes.JsonFormats._
 import akka.actor.typed.ActorSystem
+
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 case object TokenUtility {
   implicit val system = ActorSystem(Behaviors.empty, "singleRequest")
@@ -27,25 +31,25 @@ case object TokenUtility {
   ): Boolean = {
     val url =
       s"$FB_GRAPH_API_URL/debug_token?input_token=$a_t&access_token=$FB_CLIENT_ID|$FB_CLIENT_SECRET"
-    val fbResponse: Future[HttpResponse] =
+    val fbFutureResponse: Future[HttpResponse] =
       Http().singleRequest(Get(uri = url))
 
-    fbResponse.onComplete {
-      case Success(response) => {
-        response.entity.dataBytes
-          .runFold(ByteString(""))(_ ++ _)
-          .foreach { body =>
-            Unmarshal(
-              body.utf8String
-            ).to[DebugToken].onComplete {
-              case Success(v) => v.data.user_id.getOrElse("").equals(u_id)
-              case Failure(_) => false
-            }
-          }
+    try {
+      val fbResponse: HttpResponse = {
+        Await.result(fbFutureResponse, Duration(5, TimeUnit.SECONDS))
       }
-      case Failure(_) => false
+      val debugTokenFuture: Future[DebugToken] = Await.result(
+        fbResponse.entity.dataBytes
+          .runFold("")(_ ++ _.utf8String)
+          .map(body => Unmarshal(body).to[DebugToken]),
+        Duration(5, TimeUnit.SECONDS)
+      )
+      val debugToken =
+        Await.result(debugTokenFuture, Duration(5, TimeUnit.SECONDS))
+      debugToken.data.user_id.getOrElse("").equals(u_id)
+    } catch {
+      case _ => false
     }
-    true
   }
 
   def generateSecretKey(

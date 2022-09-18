@@ -6,11 +6,7 @@ import akka.http.scaladsl.model.{StatusCode, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
-import com.raunakjodhawat.models.UserRegistry.{
-  CreateUser,
-  GetAUser,
-  UpdateAUser
-}
+import com.raunakjodhawat.models.UserRegistry.{LoginUser, LogoutUser}
 import com.raunakjodhawat.models.UtilRegistry.{
   ActionPerformed,
   ActionPerformedWithError,
@@ -33,21 +29,18 @@ class UserRoutes(userRegistry: ActorRef[Command])(implicit
     system.settings.config.getDuration("my-app.routes.ask-timeout")
   )
 
-  def createUser(user: User): Future[ActionPerformed] =
-    userRegistry.ask(CreateUser(user, _))
+  def loginUser(user: User): Future[ActionPerformed] =
+    userRegistry.ask(LoginUser(user, _))
 
-  def getAUser(user_id: Int): Future[Option[User]] =
-    userRegistry.ask(GetAUser(user_id, _))
-
-  def updateAUser(user: User): Future[ActionPerformed] =
-    userRegistry.ask(UpdateAUser(user, _))
+  def logoutUser(user: User): Future[ActionPerformed] =
+    userRegistry.ask(LogoutUser(user, _))
 
   val userRoutes: Route = pathPrefix("user") {
     concat(
-      path("create") {
-        put {
+      path("login") {
+        post {
           entity(as[User]) { user =>
-            onComplete(createUser(user)) {
+            onComplete(loginUser(user)) {
               case Success(value) => {
                 value match {
                   case x: ActionPerformedWithSuccess => complete(200, x)
@@ -60,10 +53,10 @@ class UserRoutes(userRegistry: ActorRef[Command])(implicit
           }
         }
       },
-      path("update") {
-        put {
+      path("logout") {
+        post {
           entity(as[User]) { user =>
-            onComplete(updateAUser(user)) {
+            onComplete(logoutUser(user)) {
               case Success(value) => {
                 value match {
                   case x: ActionPerformedWithSuccess => complete(200, x)
@@ -72,20 +65,6 @@ class UserRoutes(userRegistry: ActorRef[Command])(implicit
               }
               case Failure(exception) => complete(400, exception)
               case _                  => complete(400, "unknown error")
-            }
-          }
-        }
-      },
-      get {
-        parameter("user_id".as[Int]) { user_id =>
-          {
-            onComplete(getAUser(user_id)) {
-              case Success(value) =>
-                value match {
-                  case Some(u) => complete(200, u)
-                  case _       => complete(404, s"${user_id} not found")
-                }
-              case Failure(exception) => complete(400, exception)
             }
           }
         }
