@@ -4,7 +4,11 @@ import akka.actor.typed.javadsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 
 import scala.collection.immutable
-import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
+import com.raunakjodhawat.models.UtilRegistry.{
+  ActionPerformed,
+  ActionPerformedWithSuccess,
+  Command
+}
 
 final case class Schedule(
     days_of_week: Array[Int],
@@ -54,7 +58,9 @@ object HabitRegistry {
   private def registry(habit: Seq[Habit]): Behavior[Command] =
     Behaviors.receiveMessage {
       case CreateHabit(userId, newHabit, replyTo) =>
-        replyTo ! ActionPerformed(s"${newHabit.habit_name} is created")
+        replyTo ! ActionPerformedWithSuccess(
+          s"${newHabit.habit_name} is created"
+        )
         registry(habit.filter(h => h.user_id == userId) :+ newHabit)
       case SeeAllHabits(userId: Int, replyTo) =>
         replyTo ! Habits(habit.filter(h => h.user_id == userId))
@@ -67,7 +73,7 @@ object HabitRegistry {
           ) :+ editedHabit
         )
       case DeleteHabit(userId, habitId, replyTo) =>
-        replyTo ! ActionPerformed(s"$habitId was deleted")
+        replyTo ! ActionPerformedWithSuccess(s"$habitId was deleted")
         registry(
           habit.filterNot(h => h.habit_id == habitId && h.user_id == userId)
         )

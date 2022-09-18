@@ -2,7 +2,11 @@ package com.raunakjodhawat.models
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
+import com.raunakjodhawat.models.UtilRegistry.{
+  ActionPerformed,
+  ActionPerformedWithSuccess,
+  Command
+}
 
 import scala.collection.immutable
 
@@ -37,7 +41,7 @@ object WorkLogRegistry {
   private def registry(workLogs: Seq[WorkLog]): Behavior[Command] =
     Behaviors.receiveMessage {
       case AddWorkLog(workLog, replyTo) =>
-        replyTo ! ActionPerformed("work Log added")
+        replyTo ! ActionPerformedWithSuccess("work Log added")
         registry(workLogs :+ workLog)
       case EditWorkLog(workLog, replyTo) =>
         replyTo ! workLog
@@ -51,7 +55,7 @@ object WorkLogRegistry {
         Behaviors.same
 
       case DeleteWorkLog(workLog, replyTo) =>
-        replyTo ! ActionPerformed("Work log is deleted")
+        replyTo ! ActionPerformedWithSuccess("Work log is deleted")
         registry(
           workLogs.filterNot(h =>
             h.user_id == workLog.user_id && h.habit_id == workLog.habit_id

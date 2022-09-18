@@ -70,7 +70,7 @@ class HabitRoutes(habitRegistry: ActorRef[Command])(implicit
               entity(as[Habit]) { habit =>
                 {
                   val habits = createHabitForAUser(userId, habit)
-                  complete(200, habits)
+                  complete(200, "habits")
                 }
               }
             }
@@ -80,7 +80,7 @@ class HabitRoutes(habitRegistry: ActorRef[Command])(implicit
           parameters("userId".as[Int], "habitId".as[Int]) { (userId, habitId) =>
             {
               val habit = deleteAHabitForAUser(userId, habitId)
-              complete(200, habit)
+              complete(200, "habit")
             }
           }
         }

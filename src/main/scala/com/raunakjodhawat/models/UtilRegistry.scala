@@ -3,5 +3,9 @@ package com.raunakjodhawat.models
 object UtilRegistry {
   trait Command
 
-  final case class ActionPerformed(description: String)
+  sealed abstract class ActionPerformed(description: String)
+  final case class ActionPerformedWithError(description: String)
+      extends ActionPerformed(description)
+  final case class ActionPerformedWithSuccess(description: String)
+      extends ActionPerformed(description)
 }

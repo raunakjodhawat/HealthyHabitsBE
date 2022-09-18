@@ -7,7 +7,7 @@ import akka.http.scaladsl.server.{Directives, Route}
 
 import scala.util.Failure
 import scala.util.Success
-import com.raunakjodhawat.routes.{HabitRoutes, UserRoutes, WorkLogRoutes}
+import com.raunakjodhawat.routes.{UserRoutes}
 
 object Application {
   private def startHttpServer(
@@ -35,26 +35,24 @@ object Application {
       val userRegistryActor =
         context.spawn(models.UserRegistry(), "UserRegistryActor")
 
-      val habitRegistryActor =
-        context.spawn(models.HabitRegistry(), "HabitRegistryActor")
+//      val habitRegistryActor =
+//        context.spawn(models.HabitRegistry(), "HabitRegistryActor")
+//
+//      val workLogRegistryActor =
+//        context.spawn(models.WorkLogRegistry(), "WorkLogRegistryActor")
 
-      val workLogRegistryActor =
-        context.spawn(models.WorkLogRegistry(), "WorkLogRegistryActor")
-
-      context.watch(habitRegistryActor)
+//      context.watch(habitRegistryActor)
       context.watch(userRegistryActor)
-      context.watch(workLogRegistryActor)
+//      context.watch(workLogRegistryActor)
 
       val userRoutes = new UserRoutes(userRegistryActor)(context.system)
-      val habitRoutes = new HabitRoutes(habitRegistryActor)(context.system)
-      val workLogRoutes =
-        new WorkLogRoutes(workLogRegistryActor)(context.system)
+//      val habitRoutes = new HabitRoutes(habitRegistryActor)(context.system)
+//      val workLogRoutes =
+//        new WorkLogRoutes(workLogRegistryActor)(context.system)
 
       val allRoutes: Route =
         Directives.concat(
-          userRoutes.userRoutes,
-          habitRoutes.habitRoutes,
-          workLogRoutes.workLogRoutes
+          userRoutes.userRoutes
         )
       startHttpServer(allRoutes)(context.system)
       Behaviors.empty

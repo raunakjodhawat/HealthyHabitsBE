@@ -1,7 +1,14 @@
 package com.raunakjodhawat.routes
 
-import com.raunakjodhawat.models.UtilRegistry.ActionPerformed
+import com.raunakjodhawat.models.UtilRegistry.{
+  ActionPerformed,
+  ActionPerformedWithError,
+  ActionPerformedWithSuccess
+}
 import com.raunakjodhawat.models.{
+  DebugToken,
+  DebugTokenData,
+  DebugTokenError,
   EditHistory,
   Habit,
   HabitEdit,
@@ -20,7 +27,12 @@ object JsonFormats {
 
   implicit val userJsonFormat = jsonFormat3(User)
   implicit val usersJsonFormat = jsonFormat1(Users)
-  implicit val actionPerformedJsonFormat = jsonFormat1(ActionPerformed)
+  implicit val actionPerformedWithSuccessJsonFormat = jsonFormat1(
+    ActionPerformedWithSuccess
+  )
+  implicit val actionPerformedWithErrorJsonFormat = jsonFormat1(
+    ActionPerformedWithError
+  )
 
   implicit val scheduleJsonFormat = jsonFormat2(Schedule)
   implicit val habitJsonFormat = jsonFormat6(Habit)
@@ -33,4 +45,7 @@ object JsonFormats {
   implicit val habitChangeLogJsonFormat = jsonFormat4(HabitEdit)
   implicit val habitChangeLogsJsonFormat = jsonFormat1(HabitEdits)
 
+  implicit val fbDebugTokenErrorJsonFormat = jsonFormat2(DebugTokenError)
+  implicit val fbDebugTokenDataJsonFormat = jsonFormat3(DebugTokenData)
+  implicit val fbDebugTokenJsonFormat = jsonFormat1(DebugToken)
 }

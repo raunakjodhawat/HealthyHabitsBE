@@ -52,7 +52,7 @@ class WorkLogRoutes(workLogRegistry: ActorRef[Command])(implicit
         entity(as[WorkLog]) { (workLog) =>
           {
             val deletedWorkLog = deleteWorkLog(workLog)
-            complete(200, deletedWorkLog)
+            complete(200, "deletedWorkLog")
           }
         }
       },
@@ -68,7 +68,7 @@ class WorkLogRoutes(workLogRegistry: ActorRef[Command])(implicit
         entity(as[WorkLog]) { (workLog) =>
           {
             val newWorkLog = createWorkLog(workLog)
-            complete(200, newWorkLog)
+            complete(200, "newWorkLog")
           }
         }
       }

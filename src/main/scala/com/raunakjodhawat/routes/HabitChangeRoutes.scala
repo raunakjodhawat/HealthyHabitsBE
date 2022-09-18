@@ -55,7 +55,7 @@ class HabitChangeRoutes(habitEditRegistry: ActorRef[Command])(implicit
               entity(as[EditHistory]) { edit =>
                 {
                   val saveResult = saveHabitEdit(habitId, userId, edit)
-                  complete(200, saveResult)
+                  complete(200, "saveResult")
                 }
               }
             }

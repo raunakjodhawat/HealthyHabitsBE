@@ -2,7 +2,11 @@ package com.raunakjodhawat.models
 
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
-import com.raunakjodhawat.models.UtilRegistry.{ActionPerformed, Command}
+import com.raunakjodhawat.models.UtilRegistry.{
+  ActionPerformed,
+  ActionPerformedWithSuccess,
+  Command
+}
 
 import scala.collection.immutable
 
@@ -33,7 +37,7 @@ object HabitEditRegistry {
   private def registry(value: Seq[HabitEdit]): Behavior[Command] =
     Behaviors.receiveMessage {
       case AddNewHabitEdit(userId, habitId, change, replyTo) =>
-        replyTo ! ActionPerformed("Change log is added")
+        replyTo ! ActionPerformedWithSuccess("Change log is added")
         registry(
           value :+ HabitEdit(habitId, userId, change, "")
         )
